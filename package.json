@@ -1,40 +1,105 @@
 {
   "name": "a11y-helper",
   "displayName": "a11y-helper",
-  "description": "",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.108.1"
   },
   "categories": [
-    "Other"
+    "AI",
+    "Chat"
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
+    "chatParticipants": [
       {
-        "command": "a11y-helper.helloWorld",
-        "title": "Hello World"
+        "id": "a11yhelper.a11yhelper",
+        "fullName": "a11y-helper",
+        "name": "a11yhelper",
+        "description": "Accessibility coach + on-demand /scan.",
+        "isSticky": true,
+        "commands": [
+          {
+            "name": "scan",
+            "description": "Runs an accessibility scan using axe and returns a structured summary of prioritized issues."
+          }
+        ]
       }
-    ]
+    ],
+    "languageModelTools": [
+      {
+        "name": "a11yhelper_scan",
+        "tags": ["a11yhelper"],
+        "toolReferenceName": "scan",
+        "displayName": "A11y Scan",
+        "modelDescription": "Runs an accessibility scan using axe and returns a structured summary of prioritized issues.",
+        "canBeReferencedInPrompt": true,
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "Optional URL override. If omitted, use the extension setting."
+            }
+          }
+        }
+      }
+    ],
+    "configuration": {
+      "title": "a11y-helper",
+      "properties": {
+        "a11yhelper.scanUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:8080",
+          "description": "Website URL to scan with axe."
+        },
+        "a11yhelper.timeout": {
+          "type": "number",
+          "default": 15000,
+          "minimum": 1000,
+          "maximum": 60000,
+          "description": "Timeout in ms for scanning."
+        },
+        "a11yhelper.scanTags": {
+          "type": "string",
+          "default": "wcag2a,wcag2aa,wcag21aa,best-practice",
+          "description": "Comma-separated axe tags used for scan filtering."
+        },
+        "a11yhelper.maxPrioritizedIssues": {
+          "type": "number",
+          "default": 3,
+          "minimum": 1,
+          "maximum": 20,
+          "description": "Maximum number of prioritized issues returned from a scan."
+        },
+        "a11yhelper.confirmUrlBeforeScan": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ask for URL confirmation before running /scan."
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src",
-    "test": "vscode-test"
+    "lint": "eslint src"
   },
   "devDependencies": {
-    "@types/vscode": "^1.108.1",
-    "@types/mocha": "^10.0.10",
+    "@types/jest": "^30.0.0",
     "@types/node": "22.x",
-    "typescript-eslint": "^8.52.0",
+    "@types/sinon": "^21.0.0",
+    "@types/vscode": "^1.108.1",
     "eslint": "^9.39.2",
+    "sinon": "^21.0.1",
     "typescript": "^5.9.3",
-    "@vscode/test-cli": "^0.0.12",
-    "@vscode/test-electron": "^2.5.2"
+    "typescript-eslint": "^8.52.0"
+  },
+  "dependencies": {
+    "@axe-core/cli": "^4.10.2",
+    "@vscode/chat-extension-utils": "^0.0.0-alpha.5",
+    "browser-driver-manager": "^2.0.1"
   }
 }

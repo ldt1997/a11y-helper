@@ -1,71 +1,117 @@
-# a11y-helper README
+# a11y-helper
 
-This is the README for your extension "a11y-helper". After writing up a brief description, we recommend including the following sections.
+`a11y-helper` is a VS Code Chat extension for accessibility engineering workflows.
 
-## Features
+It combines:
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- On-demand page scan with `axe-core`
+- Code-level fix guidance for snippets
+- General accessibility coaching in chat
 
-For example if there is an image subfolder under your extension project workspace:
+The extension is designed for practical WCAG 2.1 A/AA remediation with minimal disruption to existing code.
 
-\!\[feature X\]\(images/feature-x.png\)
+## What It Can Do
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+### 1) `/scan` mode
 
-## Requirements
+Runs an accessibility scan against a target URL and returns a structured, prioritized summary.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+Output includes:
+
+- Violation overview (rule count, affected nodes, impact distribution)
+- Top prioritized issues
+- Why each issue matters
+- Actionable fix hints
+
+### 2) `/fix` mode
+
+Analyzes the current snippet/context and proposes minimal, local accessibility fixes.
+
+Behavior highlights:
+
+- Semantic HTML preferred over ARIA when possible
+- Explicit TODO/FIXME markers when human judgment is required
+- Keeps edits targeted, avoids broad refactors
+
+### 3) Help mode
+
+Handles general accessibility questions.
+
+It can also guide users to the best next mode:
+
+- Suggest `/scan` for page-wide validation
+- Suggest `/fix` for snippet-level remediation
+
+Guidance is intentionally conservative and only appears when relevant signals exist in the user prompt.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+The extension contributes the following settings:
 
-For example:
+- `a11yhelper.scanUrl`
+	- Default URL used by `/scan`
+	- Default: `http://127.0.0.1:8080`
 
-This extension contributes the following settings:
+- `a11yhelper.timeout`
+	- Timeout for scan execution in milliseconds
+	- Default: `15000`
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+- `a11yhelper.scanTags`
+	- Comma-separated `axe` tags used to filter scan scope
+	- Default: `wcag2a,wcag2aa,wcag21aa,best-practice`
 
-## Known Issues
+- `a11yhelper.maxPrioritizedIssues`
+	- Number of prioritized issues returned in scan summary
+	- Default: `3`
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- `a11yhelper.confirmUrlBeforeScan`
+	- Whether `/scan` asks for URL confirmation before execution
+	- Default: `true`
 
-## Release Notes
+Example workspace settings:
 
-Users appreciate release notes as you update your extension.
+```json
+{
+	"a11yhelper.scanUrl": "http://localhost:3000",
+	"a11yhelper.timeout": 20000,
+	"a11yhelper.scanTags": "wcag2a,wcag2aa,wcag21aa,best-practice",
+	"a11yhelper.maxPrioritizedIssues": 5,
+	"a11yhelper.confirmUrlBeforeScan": true
+}
+```
 
-### 1.0.0
+## Development
 
-Initial release of ...
+### Prerequisites
 
-### 1.0.1
+- Node.js 18+
+- VS Code 1.108+
 
-Fixed issue #.
+### Install dependencies
 
-### 1.1.0
+```bash
+npm install
+```
 
-Added features X, Y, and Z.
+### Compile
 
----
+```bash
+npm run compile
+```
 
-## Following extension guidelines
+### Watch mode
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+```bash
+npm run watch
+```
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+### Lint
 
-## Working with Markdown
+```bash
+npm run lint
+```
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+### Debug extension
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+- Run the `Run Extension` launch configuration in VS Code.
+- This starts an Extension Development Host with the compiled output under `out/`.
