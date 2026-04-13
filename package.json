@@ -2,6 +2,11 @@
   "name": "a11y-helper",
   "displayName": "a11y-helper",
   "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ldt1997/a11y-helper.git"
+  },
   "engines": {
     "vscode": "^1.108.1"
   },
