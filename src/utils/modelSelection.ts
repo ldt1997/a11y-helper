@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 
 const PREFERRED_MODEL_SELECTOR: vscode.LanguageModelChatSelector = {
   vendor: "copilot",
-  family: "gpt-4o",
+  family: "gpt-4.1",
 };
 
 export type ModelSelectionResult = {
