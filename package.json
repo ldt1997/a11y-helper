@@ -1,7 +1,21 @@
 {
   "name": "a11y-helper",
   "displayName": "a11y-helper",
+  "description": "Accessibility coach for VS Code chat with targeted /fix guidance and on-demand /scan analysis.",
+  "publisher": "DantongLuo",
   "version": "0.0.1",
+  "icon": "icon_bot.png",
+  "homepage": "https://github.com/ldt1997/a11y-helper#readme",
+  "bugs": {
+    "url": "https://github.com/ldt1997/a11y-helper/issues"
+  },
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "wcag",
+    "chat",
+    "axe"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
