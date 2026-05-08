@@ -3,7 +3,7 @@
   "displayName": "a11y-helper",
   "description": "Accessibility coach for VS Code chat with targeted /fix guidance and on-demand /scan analysis.",
   "publisher": "DantongLuo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "icon": "icon_bot.png",
   "homepage": "https://github.com/ldt1997/a11y-helper#readme",
   "bugs": {
@@ -49,7 +49,9 @@
     "languageModelTools": [
       {
         "name": "a11yhelper_scan",
-        "tags": ["a11yhelper"],
+        "tags": [
+          "a11yhelper"
+        ],
         "toolReferenceName": "scan",
         "displayName": "A11y Scan",
         "modelDescription": "Runs an accessibility scan using axe and returns a structured summary of prioritized issues.",
