@@ -3,7 +3,7 @@
   "displayName": "a11y-helper",
   "description": "Accessibility coach for VS Code chat with targeted /fix guidance and on-demand /scan analysis.",
   "publisher": "DantongLuo",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "icon": "icon_bot.png",
   "homepage": "https://github.com/ldt1997/a11y-helper#readme",
   "bugs": {
